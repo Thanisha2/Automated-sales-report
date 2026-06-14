@@ -5,14 +5,14 @@ import schedule
 import time
 from datetime import datetime
 
-# ─────────────────────────────────────────
+
 # 1. CONNECT TO MYSQL & FETCH DATA
-# ─────────────────────────────────────────
+
 def fetch_sales_data():
     conn = mysql.connector.connect(
         host="localhost",
         user="root",           # change if different
-        password="yourpassword",  # 🔁 change to your MySQL password
+        password="yourpassword",  #  change to your MySQL password
         database="sales_db"
     )
     query = "SELECT * FROM sales"
@@ -21,9 +21,9 @@ def fetch_sales_data():
     return df
 
 
-# ─────────────────────────────────────────
+
 # 2. ANALYZE DATA
-# ─────────────────────────────────────────
+
 def analyze_data(df):
     summary = {
         "total_sales": df["amount"].sum(),
@@ -37,9 +37,9 @@ def analyze_data(df):
     return summary
 
 
-# ─────────────────────────────────────────
+
 # 3. GENERATE PDF REPORT
-# ─────────────────────────────────────────
+
 def generate_pdf(summary):
     pdf = FPDF()
     pdf.add_page()
@@ -118,26 +118,26 @@ def generate_pdf(summary):
     # Save PDF
     filename = f"sales_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
     pdf.output(filename)
-    print(f"✅ Report generated: {filename}")
+    print(f"Report generated: {filename}")
 
 
-# ─────────────────────────────────────────
+
 # 4. MAIN JOB FUNCTION
-# ─────────────────────────────────────────
+
 def generate_report():
-    print(f"\n⏳ Running report at {datetime.now().strftime('%I:%M %p')}...")
+    print(f"\n Running report at {datetime.now().strftime('%I:%M %p')}...")
     df = fetch_sales_data()
     summary = analyze_data(df)
     generate_pdf(summary)
 
 
-# ─────────────────────────────────────────
+
 # 5. SCHEDULER — runs every day at 9 AM
-# ─────────────────────────────────────────
+
 if __name__ == "__main__":
-    print("🚀 Sales Report Generator Started!")
-    print("📅 Scheduled to run every day at 9:00 AM")
-    print("▶  Running once now for testing...\n")
+    print(" Sales Report Generator Started!")
+    print(" Scheduled to run every day at 9:00 AM")
+    print("  Running once now for testing...\n")
 
     generate_report()  # Run once immediately for testing
 
